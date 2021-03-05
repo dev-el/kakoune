@@ -4,6 +4,8 @@ gzip_man ?= yes
 # to get format compatible with GitHub archive use "gzip -S .gz" here
 compress_bin ?= bzip2
 
+
+
 ifneq ($(gzip_man),yes)
     ifneq ($(gzip_man),no)
         $(error gzip_man should be either yes or no)
@@ -95,7 +97,7 @@ else
     LDFLAGS += -rdynamic
 endif
 
-CXXFLAGS += -pedantic -std=c++17 -g -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-address
+CXXFLAGS += -pedantic -Wall -Wextra -std=c++17 --stdlib=libc++ -Wno-unused-parameter -Wno-sign-compare -Wno-address -fno-builtin
 
 compiler := $(shell $(CXX) --version)
 ifneq (,$(findstring clang,$(compiler)))
