@@ -236,10 +236,10 @@ void goto_commands(Context& context, NormalParams params)
                 select_coord<mode>(buffer, BufferCoord{0,0}, context.selections());
                 break;
             case 'l':
-                select<mode, select_to_line_end<true>>(context, {});
+                select<mode, select_to_line_end<false>>(context, {});
                 break;
             case 'h':
-                select<mode, select_to_line_begin<true>>(context, {});
+                select<mode, select_to_line_begin<false>>(context, {});
                 break;
             case 'i':
                 select<mode, select_to_first_non_blank>(context, {});
@@ -2291,9 +2291,9 @@ static constexpr HashMap<Key, NormalCmd, MemoryDomain::Undefined, KeymapBackend>
     { {alt('E')}, {"extend to next WORD end", repeated<select<SelectMode::Extend, select_to_next_word_end<WORD>>>} },
     { {alt('B')}, {"extend to previous WORD start", repeated<select<SelectMode::Extend, select_to_previous_word<WORD>>>} },
 
-    { {alt('l')}, {"select to line end", repeated<select<SelectMode::Replace, select_to_line_end<false>>>} },
+    { {alt('l')}, {"select to line end", select<SelectMode::Replace, select_to_line_end<true>> } },
     { {alt('L')}, {"extend to line end", repeated<select<SelectMode::Extend, select_to_line_end<false>>>} },
-    { {alt('h')}, {"select to line begin", repeated<select<SelectMode::Replace, select_to_line_begin<false>>>} },
+    { {alt('h')}, {"select to line begin", select<SelectMode::Replace, select_to_line_begin<true>> } },
     { {alt('H')}, {"extend to line begin", repeated<select<SelectMode::Extend, select_to_line_begin<false>>>} },
 
     { {'x'}, {"select line", repeated<select<SelectMode::Replace, select_line>>} },
