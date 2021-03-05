@@ -193,7 +193,7 @@ select_to_line_end(const Context& context, const Selection& selection)
     auto& buffer = context.buffer();
     BufferCoord begin = selection.cursor();
     LineCount line = begin.line;
-    BufferCoord end = utf8::previous(buffer.iterator_at({line, buffer[line].length() - 1}),
+    BufferCoord end = utf8::character_start(buffer.iterator_at({line, buffer[line].length() - 1}),
                                      buffer.iterator_at(line)).coord();
     if (end < begin) // Do not go backward when cursor is on eol
         end = begin;
